@@ -1,0 +1,61 @@
+﻿@page "/dodaj"
+@using WebSaApiem.Models;
+@inject HttpClient httpClient;
+@inject NavigationManager navManager;
+<h3>Dodaj</h3>
+
+<form @onsubmit="DodajOsobu">
+	<p>
+		<label for="fime">Ime</label>
+		<input id="fime" @bind-value="osoba.Ime" name="fime" type="text" placeholder="Ime" />
+	</p>
+
+	<p>
+		<label for="fprezime">Prezime</label>
+		<input id="fprezime" @bind-value="osoba.Prezime" name="fprezime" type="text" placeholder="Prezime" />
+	</p>
+
+	<p>
+		<label for="fbrtel">Broj Telefona</label>
+		<input id="fbrtel" @bind-value="osoba.BrojTelefona" name="fbrtel" type="text" placeholder="Broj telefona" />
+	</p>
+
+	<p>
+		<label for="fbrmob">Broj Mobitela</label>
+		<input id="fbrmob" @bind-value="osoba.BrojMobitela" name="fbrmob" type="text" placeholder="Broj mobitela" />
+	</p>
+
+	<p>
+		<label for="fadresa">Adresa</label>
+		<input id="fadresa" @bind-value="osoba.Adresa" name="fadresa" type="text" placeholder="Adresa" />
+	</p>
+
+	<p>
+		<label for="fgrad">Grad</label>
+		<input id="fgrad" @bind-value="osoba.Grad" name="fgrad" type="text" placeholder="Grad" />
+	</p>
+
+	<p>
+		<label for="fdrzava">Država</label>
+		<input id="fdrzava" @bind-value="osoba.Drzava" name="fdrzava" type="text" placeholder="Država" />
+	</p>
+
+	<p>
+		<button type="submit">Dodaj osobu</button>
+	</p>
+
+</form>
+
+@code {
+	public Osoba osoba = new Osoba();
+
+	public async Task DodajOsobu()
+	{
+		var result = await httpClient.PostAsJsonAsync<Osoba>("https://expertvjezbeapi.azurewebsites.net/api/Osobes", osoba);
+
+		if (result.IsSuccessStatusCode)
+		{
+			navManager.NavigateTo("/osobe");	
+		}
+	}
+}
