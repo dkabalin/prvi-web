@@ -57,7 +57,7 @@ Dohvaćeni id: @Id
             var result = await httpClient.DeleteAsync($"https://expertvjezbeapi.azurewebsites.net/api/Osobes/{Id}");
             if (result.IsSuccessStatusCode)
             {
-                navManager.NavigateTo("/osobe");
+                navManager.NavigateTo("osobe");
             }
 
             else
